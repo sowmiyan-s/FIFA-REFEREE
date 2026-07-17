@@ -591,4 +591,8 @@ async function setupServer() {
   });
 }
 
-setupServer();
+if (!process.env.VERCEL && !process.env.NETLIFY && process.env.NODE_ENV !== "test") {
+  setupServer();
+}
+
+export default app;

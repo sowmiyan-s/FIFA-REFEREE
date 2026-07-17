@@ -1,34 +1,4 @@
-export interface MatchEvent {
-  id: string;
-  time: string; // Match time e.g. "108:15"
-  type: "foul" | "goal" | "penalty" | "card" | "injury" | "general" | "reversal";
-  title: string;
-  description: string; // This acts as the [LIVE_VISION_LOG] segment
-  visualData: {
-    playerPosition?: { x: number; y: number };
-    opponentPosition?: { x: number; y: number };
-    actionType: "tackle" | "goal" | "offside" | "handball" | "block_charge";
-    severity?: "yellow" | "red" | "none";
-  };
-  rulebookContext: string; // The official [OFFICIAL_RULEBOOK] snippet corresponding to this event
-  suggestedQuestions: string[];
-}
-
-export interface Match {
-  id: string;
-  sport: "soccer";
-  title: string;
-  videoUrl?: string; // Real match replay/highlight stream URL
-  teams: {
-    home: { name: string; score: number; logo: string; color: string };
-    away: { name: string; score: number; logo: string; color: string };
-  };
-  period: string; // e.g. "Extra Time" or "2nd Half"
-  gameTime: string; // e.g. "108:15"
-  stadium: string;
-  refereeName: string;
-  events: MatchEvent[];
-}
+import { Match, MatchEvent } from "./types";
 
 export const MATCHES_DATA: Match[] = [
   {
