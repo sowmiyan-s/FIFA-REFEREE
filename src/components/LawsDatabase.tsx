@@ -63,7 +63,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
       <div className="p-3 bg-[#0c0c0d] border-b border-[#242426] shrink-0">
         <div className="relative bg-[#141416] border border-slate-800 focus-within:border-emerald-500/30 rounded-lg p-1.5 flex items-center gap-1.5">
           <Search className="w-3.5 h-3.5 text-slate-600 shrink-0 ml-1" />
-          <input
+          <input aria-label="Input"
             type="text"
             value={rulebookSearchQuery}
             onChange={(e) => setRulebookSearchQuery(e.target.value)}
@@ -86,7 +86,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
           <div className="space-y-2 p-2.5 bg-[#0a0a0c] rounded border border-slate-800 text-left">
             <div>
               <label className="text-[8px] font-mono font-bold text-slate-500 uppercase block mb-1">Rule/Law Title</label>
-              <input
+              <input aria-label="Input"
                 type="text"
                 placeholder="e.g. Law 18 - Active Play"
                 value={newRuleTitle}
@@ -96,7 +96,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
             </div>
             <div>
               <label className="text-[8px] font-mono font-bold text-slate-500 uppercase block mb-1">Rule Context/Body</label>
-              <textarea
+              <textarea aria-label="Text Area"
                 placeholder="Details of the law..."
                 rows={3}
                 value={newRuleBody}

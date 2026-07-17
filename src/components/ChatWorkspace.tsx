@@ -173,7 +173,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
               {/* Suggestions Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full text-left">
                 {activePlayEvent?.suggestedQuestions?.slice(0, 4).map((q, qIdx) => (
-                  <button
+                  <button aria-label="Button"
                     key={qIdx}
                     onClick={() => onSendMessage(q)}
                     className="p-4 bg-[#141416] hover:bg-[#18181c] border border-[#242426] rounded-xl text-xs text-left text-slate-300 hover:text-white transition group flex flex-col justify-between h-20"
@@ -188,7 +188,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
                 
                 {(!activePlayEvent || !activePlayEvent.suggestedQuestions) && (
                   <>
-                    <button
+                    <button aria-label="Button"
                       onClick={() => onSendMessage("Explain FIFA Law 11 Millimeter Offside standards.")}
                       className="p-4 bg-[#141416] hover:bg-[#18181c] border border-[#242426] rounded-xl text-xs text-left text-slate-300 hover:text-white transition group flex flex-col justify-between h-20"
                     >
@@ -198,7 +198,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
                         <ArrowRight className="w-3 h-3" />
                       </span>
                     </button>
-                    <button
+                    <button aria-label="Button"
                       onClick={() => onSendMessage("What conditions constitute a direct handball offence in FIFA box?")}
                       className="p-4 bg-[#141416] hover:bg-[#18181c] border border-[#242426] rounded-xl text-xs text-left text-slate-300 hover:text-white transition group flex flex-col justify-between h-20"
                     >
@@ -278,7 +278,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
                       {!isUser && msg.id !== "welcome" && activePlayEvent?.suggestedQuestions && (
                         <div className="flex flex-wrap gap-1.5 mt-2">
                           {activePlayEvent.suggestedQuestions.map((q, idx) => (
-                            <button
+                            <button aria-label="Button"
                               key={idx}
                               onClick={() => onSendMessage(q)}
                               className="px-2.5 py-1 bg-[#141416] hover:bg-[#1c1c1f] border border-slate-800 text-[9.5px] text-slate-400 hover:text-white rounded-full transition"
@@ -332,7 +332,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
             className="bg-[#141416] border border-[#242426] focus-within:border-emerald-500/30 rounded-2xl p-1.5 flex items-end gap-1.5 transition"
           >
             {/* Quick access Ingestion trigger */}
-            <button
+            <button aria-label="Button"
               type="button"
               onClick={onOpenIngestModal}
               className="p-2.5 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white transition cursor-pointer"
@@ -341,7 +341,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
               <Sparkles className="w-4 h-4 text-emerald-400" />
             </button>
 
-            <textarea
+            <textarea aria-label="Text Area"
               rows={1}
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
@@ -356,7 +356,7 @@ export const ChatWorkspace: React.FC<ChatWorkspaceProps> = ({
               style={{ overflowY: "auto" }}
             />
 
-            <button
+            <button aria-label="Button"
               type="submit"
               disabled={!inputMessage.trim() || isTyping}
               className={`p-2.5 rounded-xl transition flex items-center justify-center shrink-0 cursor-pointer ${

@@ -77,7 +77,7 @@ export default function App() {
 
   // Video Stream and voice transcript variables
   const [customVideoUrl, setCustomVideoUrl] = useState<string>("");
-  const [rightPanelTab, setRightPanelTab] = useState<"telemetry" | "commentary">("commentary"); // Focus on voice commentary by default
+  const [rightPanelTab, setRightPanelTab] = useState<"telemetry" | "commentary" | "var">("commentary"); // Focus on voice commentary by default
   const [streamTranscript, setStreamTranscript] = useState<{ text: string; time: string }[]>([]);
   const [isLoadingTranscript, setIsLoadingTranscript] = useState<boolean>(false);
   const [transcriptError, setTranscriptError] = useState<string>("");
@@ -728,7 +728,7 @@ The governing snippet clearly states:
         
         {/* Left segment */}
         <div className="flex items-center gap-3">
-          <button
+          <button aria-label="Button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800/50 transition cursor-pointer"
             title="Toggle Sidebar"
@@ -773,7 +773,7 @@ The governing snippet clearly states:
 
         {/* Right segment */}
         <div className="flex items-center gap-1.5">
-          <button
+          <button aria-label="Button"
             onClick={() => setShowRulebookPanel(!showRulebookPanel)}
             className={`p-2 rounded-lg transition cursor-pointer flex items-center justify-center ${
               showRulebookPanel 
@@ -785,7 +785,7 @@ The governing snippet clearly states:
             <BookOpen className="w-5 h-5" />
           </button>
 
-          <button
+          <button aria-label="Button"
             onClick={() => setShowTelemetryPanel(!showTelemetryPanel)}
             className={`p-2 rounded-lg transition cursor-pointer flex items-center justify-center ${
               showTelemetryPanel 
@@ -896,7 +896,7 @@ The governing snippet clearly states:
                 <Sparkles className="w-4 h-4 text-emerald-400" />
                 Ingest FIFA Tournament Stream
               </span>
-              <button
+              <button aria-label="Button"
                 onClick={() => setShowIngestModal(false)}
                 className="p-1 hover:bg-slate-800 rounded transition text-slate-500 hover:text-white"
                 title="Cancel"
@@ -912,7 +912,7 @@ The governing snippet clearly states:
 
               <div className="space-y-1">
                 <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Match/Tournament Name</label>
-                <input
+                <input aria-label="Input field"
                   type="text"
                   placeholder="e.g. FIFA World Cup Grand Final"
                   value={customMatchName}
@@ -925,7 +925,7 @@ The governing snippet clearly states:
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Home Nation</label>
-                  <input
+                  <input aria-label="Input field"
                     type="text"
                     placeholder="e.g. Argentina"
                     value={customHomeTeam}
@@ -936,7 +936,7 @@ The governing snippet clearly states:
                 </div>
                 <div className="space-y-1">
                   <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Away Nation</label>
-                  <input
+                  <input aria-label="Input field"
                     type="text"
                     placeholder="e.g. Germany"
                     value={customAwayTeam}
@@ -949,7 +949,7 @@ The governing snippet clearly states:
 
               <div className="space-y-1">
                 <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">YouTube Replay Stream URL (Optional)</label>
-                <input
+                <input aria-label="Input field"
                   type="text"
                   placeholder="Paste video url e.g. https://www.youtube.com/watch?v=..."
                   value={customMatchStreamUrl}
@@ -965,14 +965,14 @@ The governing snippet clearly states:
               )}
 
               <div className="flex gap-2.5 pt-2">
-                <button
+                <button aria-label="Button"
                   type="button"
                   onClick={() => setShowIngestModal(false)}
                   className="flex-1 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-mono font-bold uppercase transition"
                 >
                   Cancel
                 </button>
-                <button
+                <button aria-label="Button"
                   type="submit"
                   disabled={isGeneratingEvents}
                   className="flex-1 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold uppercase transition flex items-center justify-center gap-1.5 cursor-pointer"

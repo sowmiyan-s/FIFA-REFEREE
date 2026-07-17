@@ -58,7 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </span>
           </div>
         </div>
-        <button
+        <button aria-label="Button"
           onClick={onCloseSidebar}
           className="p-1 text-slate-400 hover:text-white rounded-lg lg:hidden transition"
           title="Close Sidebar"
@@ -69,7 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Action Trigger for Custom Streams */}
       <div className="p-3 border-b border-[#242426] bg-[#111112]">
-        <button
+        <button aria-label="Button"
           onClick={onOpenIngestModal}
           className="w-full py-2 px-3 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition cursor-pointer"
         >
@@ -87,7 +87,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {MATCHES_DATA.map((m) => {
           const isSelected = m.id === selectedMatchId;
           return (
-            <button
+            <button aria-label="Button"
               key={m.id}
               onClick={() => onSelectMatchId(m.id)}
               className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition relative ${
@@ -140,7 +140,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="text-[8px] font-mono text-slate-500 block">Read live events</span>
             </div>
           </div>
-          <input
+          <input aria-label="Input field"
             type="checkbox"
             checked={isAudioEnabled}
             onChange={(e) => onToggleAudio(e.target.checked)}
@@ -169,7 +169,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-1">
             <div className="flex flex-col gap-0.5">
               <span className="text-[8px] font-mono font-bold text-slate-500 uppercase">Target</span>
-              <select
+              <select aria-label="Select"
                 value={translationLanguage}
                 onChange={(e) => onChangeTranslationLanguage(e.target.value)}
                 className="bg-slate-900 border border-slate-800 rounded px-2 py-1 text-[10px] text-slate-200 focus:outline-none focus:border-emerald-500 font-mono w-full cursor-pointer"
@@ -183,7 +183,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             <div className="flex flex-col gap-0.5 justify-end">
-              <button
+              <button aria-label="Button"
                 type="button"
                 onClick={onToggleSpeechMic}
                 className={`py-1 px-1.5 rounded border text-[10px] font-mono font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
@@ -210,6 +210,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span>RULEBOOK GROUNDED:</span>
             <span className="text-emerald-400 font-bold">12 LAWS ACTIVE</span>
           </div>
+        </div>
+
+        {/* Mission Statement */}
+        <div className="bg-[#141416] p-2 rounded border border-emerald-500/20 text-emerald-400/90 text-[9px] font-sans leading-relaxed text-center">
+          Optimizing stadium operations & enhancing the <strong>FIFA World Cup 2026</strong> experience through GenAI intelligent real-time assistance.
         </div>
 
         {/* User Account segment */}
