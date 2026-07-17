@@ -1,10 +1,11 @@
-import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
+import '@testing-library/jest-dom/vitest';
 
-window.HTMLElement.prototype.scrollIntoView = function() {};
-global.fetch = vi.fn(() =>
+const mockFetch = vi.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({ transcript: [] }),
     ok: true,
   } as Response)
 );
+
+global.fetch = mockFetch;

@@ -125,7 +125,7 @@ export default function App() {
             return { time: match[1], text: match[2] };
           }
           return { time: "00:00", text: line };
-        }).filter((p: any) => p.text.trim().length > 0 && !p.text.includes("captions not available") && !p.text.includes("No active YouTube stream"));
+        }).filter((p: { text: string }) => p.text.trim().length > 0 && !p.text.includes("captions not available") && !p.text.includes("No active YouTube stream"));
         setStreamTranscript(parsed);
       } else {
         setStreamTranscript([]);
@@ -133,7 +133,7 @@ export default function App() {
       }
       const duration = Math.round(performance.now() - startTime);
       setSystemLatency(duration);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.warn("Transcript load error:", err);
       setTranscriptError("Voice stream is currently offline or captions are disabled.");
       setStreamTranscript([]);
@@ -204,17 +204,17 @@ export default function App() {
   }, [streamTranscript, translationLanguage]);
 
   // Speech Recognition hook
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = (window as unknown as { SpeechRecognition: new () => SpeechRecognition }).SpeechRecognition || (window as unknown as { webkitSpeechRecognition: new () => SpeechRecognition }).webkitSpeechRecognition;
     if (SpeechRecognition) {
       const rec = new SpeechRecognition();
       rec.continuous = true;
       rec.interimResults = true;
       rec.lang = "en-US";
 
-      rec.onresult = async (event: any) => {
+      rec.onresult = async (event: SpeechRecognitionEvent) => {
         let interim = "";
         let final = "";
         for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -249,7 +249,7 @@ export default function App() {
         }
       };
 
-      rec.onerror = (event: any) => {
+      rec.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.warn("Speech recognition error:", event.error);
       };
 
@@ -413,7 +413,7 @@ export default function App() {
       } else {
         throw new Error("Invalid format received");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.warn("Falling back to local client-side AI generator:", err);
       
       const localGenerated: MatchEvent[] = [
@@ -631,7 +631,7 @@ export default function App() {
       triggerTTS(replyText);
       const duration = Math.round(performance.now() - startTime);
       setSystemLatency(duration);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.warn("Using localized rulebook simulation expert reply:", err);
       
       let fallbackText = `### Direct Answer

@@ -298,7 +298,7 @@ export const InsightsPanel: React.FC<InsightsPanelProps> = ({
       } else {
         throw new Error("Invalid verdict format received.");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("VLM Analysis failed, using precise rule matching fallback:", err);
       // Perfect fallback to ensure it works beautifully even if Gemini has transient issues
       setTimeout(() => {

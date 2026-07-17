@@ -1,19 +1,35 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Sidebar } from './src/components/Sidebar';
 import { describe, it, expect, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 
 describe('Sidebar component', () => {
-  it('renders without crashing', () => {
+  it('renders and interacts', () => {
+    const onToggleAudio = vi.fn();
+    const onChangeTranslationLanguage = vi.fn();
+    const onToggleSpeechMic = vi.fn();
+
     render(<Sidebar 
         isAudioEnabled={true}
-        setIsAudioEnabled={vi.fn()}
+        onToggleAudio={onToggleAudio}
+        audioFeedback=""
         translationLanguage="en"
-        setTranslationLanguage={vi.fn()}
+        onChangeTranslationLanguage={onChangeTranslationLanguage}
         isSpeechListening={false}
-        setIsSpeechListening={vi.fn()}
+        onToggleSpeechMic={onToggleSpeechMic}
         systemLatency={45}
+        onOpenIngestModal={vi.fn()}
+        onCloseSidebar={vi.fn()}
     />);
+    
     expect(screen.getByText(/FIFA World Cup 2026/i)).toBeInTheDocument();
+    
+    const audioCheckbox = screen.getByRole('checkbox');
+    fireEvent.click(audioCheckbox);
+    expect(onToggleAudio).toHaveBeenCalledWith(false);
+
+    const langSelect = screen.getByRole('combobox');
+    fireEvent.change(langSelect, { target: { value: 'es' } });
+    expect(onChangeTranslationLanguage).toHaveBeenCalledWith('es');
   });
 });

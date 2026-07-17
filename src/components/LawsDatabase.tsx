@@ -50,7 +50,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
           <BookOpen className="w-4 h-4 text-emerald-400" />
           FIFA Laws Database
         </span>
-        <button 
+        <button aria-label="Button" 
           onClick={() => setShowRulebookPanel(false)}
           className="p-1 hover:bg-slate-800 text-slate-500 hover:text-white rounded transition"
           title="Close Panel"
@@ -75,7 +75,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
 
       {/* Custom Rule Adder Toggle */}
       <div className="px-3 py-2.5 bg-[#141416] border-b border-[#242426] flex flex-col gap-2 shrink-0">
-        <button
+        <button aria-label="Button"
           onClick={() => setShowAddRuleForm(!showAddRuleForm)}
           className="w-full py-1.5 px-2.5 rounded bg-emerald-500/10 hover:bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 flex items-center justify-center gap-1.5 text-[9.5px] font-mono font-bold uppercase tracking-wider transition cursor-pointer"
         >
@@ -104,7 +104,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
                 className="w-full bg-[#141416] border border-slate-800 rounded px-2 py-1 text-[10px] text-white placeholder-slate-700 focus:outline-none focus:border-emerald-500/40 font-sans"
               />
             </div>
-            <button
+            <button aria-label="Button"
               type="button"
               onClick={onSaveCustomRule}
               className="w-full py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold rounded text-[9.5px] uppercase transition cursor-pointer"
@@ -128,7 +128,7 @@ export const LawsDatabase: React.FC<LawsDatabaseProps> = ({
             </div>
             <p className="text-[10px] text-slate-400 leading-relaxed font-sans">{r.body}</p>
             
-            <button
+            <button aria-label="Button"
               onClick={() => onTriggerLawCheck(r.title)}
               className="self-end text-[9px] text-emerald-400 font-mono font-extrabold hover:underline flex items-center gap-1 transition cursor-pointer"
             >

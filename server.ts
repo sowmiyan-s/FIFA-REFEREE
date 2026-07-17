@@ -64,7 +64,7 @@ async function generateFallbackCommentary(
   videoUrl: string,
   matchTitle?: string,
   sport?: string,
-  events?: any[]
+  events?: unknown[]
 ): Promise<string> {
   const sportType = (sport || "soccer").toLowerCase();
   const title = matchTitle || "Live Match";
@@ -195,7 +195,7 @@ async function fetchYouTubeTranscriptText(videoUrl: string): Promise<string> {
     
     transcriptCache.set(videoId, formatted);
     return formatted;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log(`YouTube transcript not available for video ID ${videoId}.`);
     // Propagate error to caller for fallback generation
     throw error;
@@ -284,7 +284,7 @@ app.post("/api/chat", async (req: express.Request, res: express.Response) => {
     }
 
     // Prepare contents array for Gemini API call
-    const contents: any[] = [];
+    const contents: unknown[] = [];
 
     // Map conversation history
     if (Array.isArray(history)) {
@@ -326,9 +326,9 @@ User Query: ${query}`;
     const replyText = response.text || "I was unable to generate an analysis. Let me monitor the next play.";
 
     res.json({ reply: replyText, transcriptAttached: transcriptText !== "No YouTube audio broadcast stream available." });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in /api/chat:", err);
-    res.status(500).json({ error: err.message || "Internal Server Error" });
+    res.status(500).json({ error: (err as Error).message || "Internal Server Error" });
   }
 });
 
@@ -381,9 +381,9 @@ Text to translate:
     });
 
     res.json({ success: true, translated: response.text?.trim() || text });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in /api/translate:", err);
-    res.status(500).json({ error: err.message || "Translation failed." });
+    res.status(500).json({ error: (err as Error).message || "Translation failed." });
   }
 });
 
@@ -407,7 +407,7 @@ app.post("/api/get-transcript", async (req: express.Request, res: express.Respon
     } else {
       try {
         transcriptText = await fetchYouTubeTranscriptText(videoUrl);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.log(`Engaging AI Live-Commentator Simulation Mode for video ${videoId}...`);
         // Generate beautiful custom live-commentary matching the match events!
         transcriptText = await generateFallbackCommentary(videoUrl, matchTitle, sport, events);
@@ -416,9 +416,9 @@ app.post("/api/get-transcript", async (req: express.Request, res: express.Respon
     }
 
     res.json({ success: true, videoId, transcript: transcriptText });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in /api/get-transcript:", err);
-    res.status(500).json({ error: err.message || "Failed to fetch transcript." });
+    res.status(500).json({ error: (err as Error).message || "Failed to fetch transcript." });
   }
 });
 
@@ -481,9 +481,9 @@ Generate realistic names of world-class players fitting the match name "${matchN
 
     const events = JSON.parse(resultText);
     res.json({ success: true, events });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error generating stream events:", err);
-    res.status(500).json({ error: err.message || "Failed to generate stream events dynamically." });
+    res.status(500).json({ error: (err as Error).message || "Failed to generate stream events dynamically." });
   }
 });
 
@@ -499,7 +499,7 @@ app.post("/api/analyze-vlm", async (req: express.Request, res: express.Response)
       return;
     }
 
-    const contents: any[] = [];
+    const contents: unknown[] = [];
     const prompt = `You are a professional Video Assistant Referee (VAR) visual analysis agent for RefAI.
 Analyze the provided sports play-incident image frame under official rulebooks.
 
@@ -520,7 +520,7 @@ You MUST respond with exactly a JSON object matching this schema. Do not write a
 }`;
 
     let modifiedPrompt = prompt;
-    let inlineDataObj: any = null;
+    let inlineDataObj: unknown = null;
 
     if (imageBase64) {
       const matches = imageBase64.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
@@ -550,7 +550,7 @@ You MUST respond with exactly a JSON object matching this schema. Do not write a
       }
     }
 
-    const parts: any[] = [{ text: modifiedPrompt }];
+    const parts: unknown[] = [{ text: modifiedPrompt }];
     if (inlineDataObj) {
       parts.push({ inlineData: inlineDataObj });
     }
@@ -576,9 +576,9 @@ You MUST respond with exactly a JSON object matching this schema. Do not write a
 
     const verdict = JSON.parse(resultText);
     res.json({ success: true, verdict });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error in VLM analysis:", err);
-    res.status(500).json({ error: err.message || "Failed to analyze visual frame." });
+    res.status(500).json({ error: (err as Error).message || "Failed to analyze visual frame." });
   }
 });
 
